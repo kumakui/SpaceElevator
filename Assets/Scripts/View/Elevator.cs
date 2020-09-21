@@ -1,0 +1,286 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class Elevator : MonoBehaviour
+{
+    private Rigidbody _rb;
+    private AudioSource[] _audioSources;
+    private float _damageCount = 0f; //前回ダメージを受けてからの経過時間
+
+    public float invincibleTime; //被弾後の無敵時間
+
+    public ElevatorData elevatorData;
+
+    public Data data;
+    public ElevatorController elevatorController;
+    public PlatformController platformController;
+    public BossController bossController;
+
+    public GameObject upFire;
+    public GameObject downFire;
+    private ParticleSystem.EmissionModule _upEmission;
+    private ParticleSystem.EmissionModule _downEmission;
+
+    // public float soundVolume;
+    public float soundMinPitch;
+    public float soundMaxPitch;
+
+    public ControlButton controlButton;
+
+    private PointerState _pointerState = PointerState.None;
+
+    private enum PointerState
+    {
+        Up,
+        Down,
+        None
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _audioSources = GetComponents<AudioSource>();
+        elevatorData.Position = GetComponent<Transform>().position;
+        elevatorController.dockAction += Dock;
+        platformController.UnloadAction += Unload;
+        platformController.UndockAction += UnDock;
+        platformController.LoadAction += Load;
+        elevatorController.elevatorPauseAction += Pause;
+        elevatorController.elevatorResumeAction += Resume;
+        bossController.onBossDefeatAction += onBossDefeat;
+
+        _upEmission = upFire.GetComponent<ParticleSystem>().emission;
+        _downEmission = downFire.GetComponent<ParticleSystem>().emission;
+
+        var initialPos = GameObject.Find("Platform1").transform.Find("PlatformCollider").position;
+        Dock(initialPos);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (elevatorData.IsDockingProgress && !_audioSources[1].isPlaying)
+        {
+            _audioSources[1].Play();
+        }
+
+        if (!elevatorData.IsDockingProgress && _audioSources[1].isPlaying)
+        {
+            _audioSources[1].Stop();
+        }
+
+        _damageCount += Time.deltaTime;
+    }
+
+    private void FixedUpdate()
+    {
+        //エディター用入力検知
+        // if (Input.GetKey("up"))
+        // {
+        //     _pointerState = PointerState.Up;
+        // }
+        // else if (Input.GetKey("down"))
+        // {
+        //     _pointerState = PointerState.Down;
+        // }
+        // else
+        // {
+        //     _pointerState = PointerState.None;
+        // }
+
+        Vector3 thrust = Vector3.zero;
+
+        if (_pointerState == PointerState.Up && !elevatorData.IsDocked && !elevatorData.IsPaused)
+        {
+            elevatorController.OnKeyStateChanged("up");
+            // _upEmission.enabled = true;
+
+            thrust = CulcThrust();
+
+            if (_rb.velocity.y > 0)
+            {
+                _rb.AddForce(thrust);
+            }
+            else
+            {
+                _rb.AddForce(thrust * 0.7f);
+            }
+
+            _audioSources[0].mute = false;
+            _audioSources[0].pitch =
+                Mathf.Lerp(soundMinPitch, soundMaxPitch, elevatorData.Temp / data.T_MAX);
+        }
+        else if (_pointerState == PointerState.Down && !elevatorData.IsDocked &&
+                 !elevatorData.IsPaused)
+        {
+            elevatorController.OnKeyStateChanged("down");
+            // _downEmission.enabled = true;
+
+            thrust = -CulcThrust();
+
+
+            if (_rb.velocity.y < 0)
+            {
+                _rb.AddForce(thrust);
+            }
+            else
+            {
+                _rb.AddForce(thrust * 0.7f);
+            }
+
+            _audioSources[0].mute = false;
+            _audioSources[0].pitch =
+                Mathf.Lerp(soundMinPitch, soundMaxPitch, elevatorData.Temp / data.T_MAX);
+        }
+        else if (_pointerState == PointerState.None)
+        {
+            elevatorController.OnKeyStateChanged("none");
+            // _upEmission.enabled = false;
+            // _downEmission.enabled = false;
+
+            elevatorData.Temp -= data.T_cooling_rate;
+
+            _audioSources[0].mute = true;
+        }
+
+        // Debug.Log("start:  "+transform.position+"  end: "+(transform.position + thrust * 0.01f));
+        // Debug.DrawRay(transform.position, transform.position + (thrust * 0.01f), Color.red);
+
+
+        elevatorData.Speed = _rb.velocity.magnitude;
+        elevatorData.Position = _rb.position;
+        elevatorController.Refresh(elevatorData);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        elevatorController.onEnterCollision(other);
+
+        if (other.CompareTag("PlatformCollider"))
+        {
+            elevatorData.DockingPlatform = other.transform.root.gameObject;
+            if (!elevatorData.IsDocked && elevatorData.IsDockingable)
+            {
+                elevatorData.IsDockingProgress = true;
+            }
+        }
+
+        // if (other.CompareTag("BossShot"))
+        // {
+        //     GetDamage(other);
+        // }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PlatformCollider"))
+        {
+            elevatorData.DockingPlatform = null;
+            elevatorData.IsDockingProgress = false;
+
+            elevatorData.IsDockingable = true;
+        }
+    }
+
+    private Vector3 CulcThrust()
+    {
+        var P_slope = data.P_slope;
+        var T = elevatorData.Temp;
+        var P_0 = data.P_0;
+
+        elevatorData.Temp += data.T_0 * Time.deltaTime;
+        // var thrust = Vector3.up * (data.P_slope * (data.P_0 + elevatorData.Temp));
+
+        var force = P_slope * T + P_0;
+
+        return force * Vector3.up;
+    }
+
+    private void Dock(Vector3 pos)
+    {
+        elevatorData.IsDocked = true;
+        elevatorData.IsDockingProgress = false;
+        _rb.velocity = Vector3.zero;
+        // _rb.isKinematic = true;
+        _rb.useGravity = false;
+        _rb.position = pos;
+    }
+
+    private void Unload(LuggageData luggageData)
+    {
+        elevatorData.Luggage.Amount = 0;
+    }
+
+    public void Load(LuggageData newLuggageData)
+    {
+        elevatorData.Luggage.Amount = newLuggageData.Amount;
+        elevatorData.Luggage.Destination = newLuggageData.Destination;
+    }
+
+    public void OnPointerDown(string button)
+    {
+        if (button == "Up")
+        {
+            _pointerState = PointerState.Up;
+        }
+
+        if (button == "Down")
+        {
+            _pointerState = PointerState.Down;
+        }
+    }
+
+    //todo 指をスライドさせたときはupとdownどちらが先に呼ばれるのか?
+    public void OnPointerUp(string button)
+    {
+        _pointerState = PointerState.None;
+    }
+
+    public void GetDamage(Collider other)
+    {
+        if (_damageCount > invincibleTime)
+        {
+            //無敵時間がもう終わっている
+            elevatorData.HP -= data.BossShotDamage;
+            _audioSources[2].Play();
+            elevatorController.getDamage(other, elevatorData.HP);
+
+            _damageCount = 0f;
+        }
+    }
+
+    private void UnDock()
+    {
+        elevatorData.IsDocked = false;
+        elevatorData.DockingPlatform = null;
+        // _rb.isKinematic = false;
+        _rb.useGravity = true;
+        elevatorData.IsDockingable = false;
+    }
+
+    private void Pause()
+    {
+        _rb.velocity = Vector3.zero;
+        // _rb.isKinematic = true;
+        _rb.useGravity = false;
+        elevatorData.IsPaused = true;
+    }
+
+
+    private void Resume()
+    {
+        // _rb.isKinematic = false;
+        _rb.useGravity = true;
+        elevatorData.IsPaused = false;
+    }
+
+    private void onBossDefeat()
+    {
+        _rb.velocity = Vector3.zero;
+        _rb.isKinematic = true;
+    }
+}
