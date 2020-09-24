@@ -28,7 +28,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var elevatorWater = GameObject.Find("ElevatorWater");
+        Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
+        var elevatorWater = GameObject.Find("ElevatorWater2");
         _elevatorWaterRenderer = elevatorWater.GetComponent<MeshRenderer>();
         _wallUpperLimitHeight = UpperLimitObject.transform.position.y;
 

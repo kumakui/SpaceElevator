@@ -15,9 +15,7 @@ public class Dragon : MonoBehaviour
     //弾
     public Shot normalShotPrefab;
     public Shot strongShotPrefab;
-    public float shotTimer;
     public int shotCount;
-    public float shotInterval;
     public float shotSpeed;
     public float shotAngleRange;
     public Vector3 shotPosOffset;
@@ -280,8 +278,9 @@ public class Dragon : MonoBehaviour
 
     private void GetDamage(Collider other)
     {
-        if (_damageCount > invincibleTime)
+        if (_damageCount > invincibleTime && data.GunDamage > 0)
         {
+            var initialPos = transform.position;
             HP -= data.GunDamage;
             damageAudioSource.Play();
             _animator.SetTrigger("GetHit");
@@ -291,6 +290,8 @@ public class Dragon : MonoBehaviour
 
             bossController.getDamage(other, transform.position);
             _damageCount = 0f;
+
+            transform.position = new Vector3(120, transform.position.y, transform.position.z);
         }
     }
 

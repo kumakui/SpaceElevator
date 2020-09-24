@@ -242,7 +242,7 @@ public class Elevator : MonoBehaviour
 
     public void GetDamage(Collider other)
     {
-        if (_damageCount > invincibleTime)
+        if (_damageCount > invincibleTime && data.BossShotDamage > 0)
         {
             //無敵時間がもう終わっている
             elevatorData.HP -= data.BossShotDamage;
