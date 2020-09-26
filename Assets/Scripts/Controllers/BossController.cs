@@ -22,6 +22,8 @@ public class BossController : MonoBehaviour
     public UnityAction<ElevatorData> onElevatorRefreshAction;
     public UnityAction<int> onBossDamageAction;
     public UnityAction onBossDefeatAction;
+    public UnityAction onElevatorDefeatedAction;
+    public UnityAction onRestartFightAction;
 
     private bool _boss01;
     private bool _boss02;
@@ -85,7 +87,7 @@ public class BossController : MonoBehaviour
 
         Dragon.transform.position = _elevatorData.Position + new Vector3(120, 0, 0);
         Dragon.transform.rotation = Quaternion.Euler(0, -90, 0);
-        Dragon.OnFightStart();
+        Dragon.StartFight();
 
         onBossStart.Invoke();
         elevatorController.OnBossStart();
@@ -110,11 +112,11 @@ public class BossController : MonoBehaviour
 
         if (_HP <= 0)
         {
-            Defeated();
+            BossDefeated();
         }
     }
 
-    private void Defeated()
+    private void BossDefeated()
     {
         UpdateVariable();
         onBossDefeatAction.Invoke();
@@ -122,6 +124,19 @@ public class BossController : MonoBehaviour
         mainCamera.target = GameObject.Find("DragonSoulEaterRedPBR");
 
         StartCoroutine(Wait(1f, () => { flowchart.SendFungusMessage("Boss03"); }));
+    }
+
+    public void ElevatorDefeated()
+    {
+        onElevatorDefeatedAction.Invoke();
+        flowchart.SendFungusMessage("Boss04");
+    }
+
+
+    public void RestartFight()
+    {
+        _HP = 100;
+        onRestartFightAction.Invoke();
     }
 
     private IEnumerator Wait(float waitSecond, Action action)
@@ -162,7 +177,7 @@ public class BossController : MonoBehaviour
 
             Dragon.transform.position = _elevatorData.Position + new Vector3(120, 0, 0);
             Dragon.transform.rotation = Quaternion.Euler(0, -90, 0);
-            Dragon.OnFightStart();
+            Dragon.StartFight();
 
             onBossStart.Invoke();
             elevatorController.OnBossStart();

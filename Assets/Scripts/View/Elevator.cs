@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fungus;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +10,6 @@ public class Elevator : MonoBehaviour
     private Rigidbody _rb;
     private AudioSource[] _audioSources;
     private float _damageCount = 0f; //前回ダメージを受けてからの経過時間
-
     public float invincibleTime; //被弾後の無敵時間
 
     public ElevatorData elevatorData;
@@ -18,6 +18,7 @@ public class Elevator : MonoBehaviour
     public ElevatorController elevatorController;
     public PlatformController platformController;
     public BossController bossController;
+    public Flowchart flowchart;
 
     public GameObject upFire;
     public GameObject downFire;
@@ -29,6 +30,7 @@ public class Elevator : MonoBehaviour
     public float soundMaxPitch;
 
     public ControlButton controlButton;
+    public Gun gun;
 
     private PointerState _pointerState = PointerState.None;
 
@@ -51,7 +53,8 @@ public class Elevator : MonoBehaviour
         platformController.LoadAction += Load;
         elevatorController.elevatorPauseAction += Pause;
         elevatorController.elevatorResumeAction += Resume;
-        bossController.onBossDefeatAction += onBossDefeat;
+        bossController.onBossDefeatAction += OnBossDefeat;
+        bossController.onRestartFightAction += OnRestartBossFight;
 
         _upEmission = upFire.GetComponent<ParticleSystem>().emission;
         _downEmission = downFire.GetComponent<ParticleSystem>().emission;
@@ -250,6 +253,11 @@ public class Elevator : MonoBehaviour
             elevatorController.getDamage(other, elevatorData.HP);
 
             _damageCount = 0f;
+
+            if (elevatorData.HP == 0)
+            {
+                ElevatorDefeat();
+            }
         }
     }
 
@@ -278,9 +286,28 @@ public class Elevator : MonoBehaviour
         elevatorData.IsPaused = false;
     }
 
-    private void onBossDefeat()
+    private void OnBossDefeat()
     {
         _rb.velocity = Vector3.zero;
         _rb.isKinematic = true;
     }
+
+    private void ElevatorDefeat()
+    {
+        bossController.ElevatorDefeated();
+        gun.enabled = false;
+        _rb.velocity = Vector3.zero;
+        _rb.useGravity = false;
+        elevatorData.IsPaused = true;
+    }
+
+    private void OnRestartBossFight()
+    {
+        elevatorController.getDamage(null, 100);
+        gun.enabled = true;
+        elevatorData.HP = 100;
+        _rb.useGravity = true;
+        elevatorData.IsPaused = false;
+    }
+
 }

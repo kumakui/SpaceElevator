@@ -27,6 +27,10 @@ public class DamageEffectUI : MonoBehaviour
 
     private void onDamage(int HP)
     {
+        if (HP == 100)
+        {
+            return;
+        }
         _image.color = new Color(0.5f, 0f, 0f, 0.5f);
     }
 }

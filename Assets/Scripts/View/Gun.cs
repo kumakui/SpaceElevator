@@ -27,7 +27,7 @@ public class Gun : MonoBehaviour
         if(shotTimer < shotInterval) return;
         shotTimer = 0;
 
-        shotN(8, 0, shotSpeed, 3);
+        shotN(8, 0, shotSpeed, shotCount);
         // shotNWay(0, shotAngleRange, shotSpeed, shotCount);
     }
 

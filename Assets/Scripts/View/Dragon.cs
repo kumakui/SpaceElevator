@@ -65,9 +65,11 @@ public class Dragon : MonoBehaviour
 
         bossController.onElevatorRefreshAction += OnElevatorRefresh;
         bossController.onBossDefeatAction += Defeated;
+        bossController.onRestartFightAction += OnRestartFight;
+        bossController.onElevatorDefeatedAction += OnElevatorDefeated;
 
         transform.position = bossController.EntryObject.transform.position;
-        _state = BossState.wait;
+        SetState(BossState.wait);
         _animator.SetTrigger("Scream");
         entryAudioSource.Play();
     }
@@ -152,7 +154,7 @@ public class Dragon : MonoBehaviour
         }
     }
 
-    public void OnFightStart()
+    public void StartFight()
     {
         SetState(BossState.chase);
         _animator.SetBool("Fly", true);
@@ -186,10 +188,26 @@ public class Dragon : MonoBehaviour
             }));
     }
 
+    private void OnElevatorDefeated()
+    {
+        SetState(BossState.wait);
+    }
+
+    private void OnRestartFight()
+    {
+        HP = 100;
+        StartFight();
+    }
 
     private void SetState(BossState state)
     {
+        Debug.Log(state);
         _state = state;
+        if (state == BossState.wait)
+        {
+            _animator.SetBool("Fly", false);
+            StopAllCoroutines();
+        }
     }
 
     private void OnElevatorRefresh(ElevatorData elevatorData)
@@ -199,6 +217,8 @@ public class Dragon : MonoBehaviour
 
     private void shotNWay(float angleBase, float angleRange, float speed, int count)
     {
+        if(_state == BossState.wait) return;
+
         var pos = transform.position + shotPosOffset;
         var rot = Quaternion.Euler(0, 0, 0);
 
@@ -222,6 +242,7 @@ public class Dragon : MonoBehaviour
     private void shotTrackingNWay(float angleBase, float angleRange, float speed, int count,
         Vector3 targetPos)
     {
+        if(_state == BossState.wait) return;
         var pos = transform.position + shotPosOffset;
         var rot = Quaternion.Euler(0, 0, -90);
         var trackingAngle = 0f;
@@ -250,6 +271,7 @@ public class Dragon : MonoBehaviour
 
     private void shotN(float shotDistance, float angle, float speed, int count)
     {
+        if(_state == BossState.wait) return;
         var pos = transform.position;
         var rot = Quaternion.Euler(0, 0, 0);
 
