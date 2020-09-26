@@ -50,7 +50,7 @@ public class ElevatorController : MonoBehaviour
         //荷物量と目的地の更新
         luggageInfoUpdateAction.Invoke(data.Luggage.Amount, data.Luggage.Destination);
         //座標更新
-        elevatorPosChangeAction.Invoke(data.Position);
+        // elevatorPosChangeAction.Invoke(data.Position);
 
         bossController.OnElevatorRefresh(data);
 

@@ -80,8 +80,8 @@ public class BossController : MonoBehaviour
         UpdateVariable();
         mainCamera.offset = new Vector3(70, 0, 0);
         mainCamera.target = GameObject.Find("Elevator");
-        mainCamera.camera.orthographicSize = 200f;
-        mainCamera.camera.fieldOfView = 30f;//デフォルトは19
+        // mainCamera.camera.orthographicSize = 200f;
+        mainCamera.camera.fieldOfView = 35f;//デフォルトは19
 
         Dragon.transform.position = _elevatorData.Position + new Vector3(120, 0, 0);
         Dragon.transform.rotation = Quaternion.Euler(0, -90, 0);
@@ -158,7 +158,7 @@ public class BossController : MonoBehaviour
             mainCamera.offset = new Vector3(70, 0, 0);
             mainCamera.target = GameObject.Find("Elevator");
             mainCamera.camera.orthographicSize = 200f;
-            mainCamera.camera.fieldOfView = 45f;
+            mainCamera.camera.fieldOfView = 35f;
 
             Dragon.transform.position = _elevatorData.Position + new Vector3(120, 0, 0);
             Dragon.transform.rotation = Quaternion.Euler(0, -90, 0);

@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
     {
         Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
         var elevatorWater = GameObject.Find("ElevatorWater2");
-        _elevatorWaterRenderer = elevatorWater.GetComponent<MeshRenderer>();
+        // _elevatorWaterRenderer = elevatorWater.GetComponent<MeshRenderer>();
         _wallUpperLimitHeight = UpperLimitObject.transform.position.y;
 
         //エレベーター背景壁を生成

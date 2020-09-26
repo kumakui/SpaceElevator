@@ -223,18 +223,13 @@ public class Dragon : MonoBehaviour
         Vector3 targetPos)
     {
         var pos = transform.position + shotPosOffset;
-        var rot = Quaternion.identity;
+        var rot = Quaternion.Euler(0, 0, -90);
         var trackingAngle = 0f;
 
-        if (targetPos == null)
-        {
-            rot = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            var diff = (targetPos - shotPosOffset) - transform.position;
-            trackingAngle = (Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg) + 180f;
-        }
+
+        var diff = (targetPos - shotPosOffset) - transform.position;
+        trackingAngle = (Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg) + 180f;
+
 
         if (count > 1)
         {
