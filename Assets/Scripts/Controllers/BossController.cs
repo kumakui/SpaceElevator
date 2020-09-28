@@ -15,10 +15,12 @@ public class BossController : MonoBehaviour
     public MainCamera mainCamera;
     public ElevatorController elevatorController;
     public PlatformController platformController;
+    public GameController gameController;
     public GameObject turret;
     public Data data;
 
-    public UnityAction onBossStart;
+
+    public UnityAction BossFightStartAction;
     public UnityAction<ElevatorData> onElevatorRefreshAction;
     public UnityAction<int> onBossDamageAction;
     public UnityAction onBossDefeatAction;
@@ -55,7 +57,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    public void EntryBoss()
+    public void AwakeBoss()
     {
         UpdateVariable();
         mainCamera.target = EntryObject;
@@ -69,6 +71,7 @@ public class BossController : MonoBehaviour
             StartCoroutine(Wait(0.2f, () =>
             {
                 Dragon.gameObject.SetActive(true);
+                gameController.OnBossAwake();
                 if (_boss01 && !_boss02)
                 {
                     flowchart.SendFungusMessage("Boss02");
@@ -89,7 +92,7 @@ public class BossController : MonoBehaviour
         Dragon.transform.rotation = Quaternion.Euler(0, -90, 0);
         Dragon.StartFight();
 
-        onBossStart.Invoke();
+        BossFightStartAction.Invoke();
         elevatorController.OnBossStart();
         platformController.OnBossStart();
 
@@ -179,7 +182,7 @@ public class BossController : MonoBehaviour
             Dragon.transform.rotation = Quaternion.Euler(0, -90, 0);
             Dragon.StartFight();
 
-            onBossStart.Invoke();
+            BossFightStartAction.Invoke();
             elevatorController.OnBossStart();
             platformController.OnBossStart();
 

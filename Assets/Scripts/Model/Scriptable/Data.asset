@@ -17,5 +17,5 @@ MonoBehaviour:
   P_0: 1600
   P_slope: 10
   T_cooling_rate: 5
-  GunDamage: 10
-  BossShotDamage: 5
+  GunDamage: 20
+  BossShotDamage: 10

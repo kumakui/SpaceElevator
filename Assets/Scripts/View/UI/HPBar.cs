@@ -22,7 +22,7 @@ public class HPBar : MonoBehaviour
         slider.value = 1f;
         canvas.transform.rotation = _camera.transform.rotation;
         bossController.onBossDamageAction += OnBossDamage;
-        bossController.onBossStart += OnBossStart;
+        bossController.BossFightStartAction += OnBossStart;
         elevatorController.onElevatorDamageAction += OnElevatorDamage;
         bossController.onBossDefeatAction += FightFinish;
 

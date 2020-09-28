@@ -211,6 +211,7 @@ public class Elevator : MonoBehaviour
         // _rb.isKinematic = true;
         _rb.useGravity = false;
         _rb.position = pos;
+        _pointerState = PointerState.None;
     }
 
     private void Unload(LuggageData luggageData)
@@ -290,6 +291,7 @@ public class Elevator : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         _rb.isKinematic = true;
+        gun.enabled = false;
     }
 
     private void ElevatorDefeat()

@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class Dragon : MonoBehaviour
 {
-    public GameObject explosionParticle;
     public BossController bossController;
     public Data data;
     public float speed;
     public int HP;
+    public GameObject dieParticle;
 
     //弾
     public Shot normalShotPrefab;
@@ -322,12 +322,14 @@ public class Dragon : MonoBehaviour
     private void Defeated()
     {
         _characterController.enabled = false;
+        StopAllCoroutines();
         _animator.SetTrigger("Die");
     }
 
     //死亡モーション終了時
     private void DieAnimFinish()
     {
+        Instantiate(dieParticle, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
 

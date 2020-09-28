@@ -13,11 +13,14 @@ public class GameController : MonoBehaviour
     public GameObject UpperLimitObject;
     public Material ground;
     public Material space;
+    public AudioClip bossBGM;
+    public BossController bossController;
 
     public UnityAction<Region> onRegionChangeAction;
 
     private MeshRenderer _elevatorWaterRenderer;
     private float _wallUpperLimitHeight;
+    private AudioSource _bgmAudioSource;
 
     public enum Region
     {
@@ -28,6 +31,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _bgmAudioSource = Camera.main.GetComponent<AudioSource>();
+
         Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
         var elevatorWater = GameObject.Find("ElevatorWater2");
         // _elevatorWaterRenderer = elevatorWater.GetComponent<MeshRenderer>();
@@ -79,5 +84,23 @@ public class GameController : MonoBehaviour
         {
             RenderSettings.skybox = ground;
         }
+    }
+
+    public void FinishGame()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            Application.Quit();
+        }
+    }
+
+    public void StopBGM()
+    {
+        _bgmAudioSource.Stop();
+    }
+
+    public void OnBossAwake()
+    {
+        _bgmAudioSource.PlayOneShot(bossBGM);
     }
 }

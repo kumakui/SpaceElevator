@@ -14,7 +14,7 @@ public class LuggageInfoUI : MonoBehaviour
     void Start()
     {
         elevatorController.luggageInfoUpdateAction += UpdateLuggageInfo;
-        bossController.onBossStart += onBossStart;
+        bossController.BossFightStartAction += onBossStart;
         _text = GetComponent<Text>();
     }
 
