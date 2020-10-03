@@ -201,7 +201,6 @@ public class Dragon : MonoBehaviour
 
     private void SetState(BossState state)
     {
-        Debug.Log(state);
         _state = state;
         if (state == BossState.wait)
         {

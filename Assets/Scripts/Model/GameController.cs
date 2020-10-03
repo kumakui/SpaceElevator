@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
     {
         _bgmAudioSource = Camera.main.GetComponent<AudioSource>();
 
-        Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
+        // Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
         var elevatorWater = GameObject.Find("ElevatorWater2");
         // _elevatorWaterRenderer = elevatorWater.GetComponent<MeshRenderer>();
         _wallUpperLimitHeight = UpperLimitObject.transform.position.y;
@@ -90,6 +90,7 @@ public class GameController : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
+            Application.runInBackground = false;
             Application.Quit();
         }
     }

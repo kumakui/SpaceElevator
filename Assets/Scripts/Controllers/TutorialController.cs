@@ -43,20 +43,20 @@ public class TutorialController : MonoBehaviour
         //     return true;
         // }
 
-        if (!_tutorial03 && dockingPlatform.name.Equals("Platform2"))
+        if (_tutorial01 && !_tutorial03 && dockingPlatform.name.Equals("Platform2"))
         {
             flowchart.SendFungusMessage("Tutorial03");
             return true;
         }
 
 
-        if (!_tutorial04 && dockingPlatform.name.Equals("Platform3"))
+        if (_tutorial03 && !_tutorial04 && dockingPlatform.name.Equals("Platform3"))
         {
             flowchart.SendFungusMessage("Tutorial04");
             return true;
         }
 
-        if (!_boss01 && dockingPlatform.name.Equals("Platform4") )
+        if (_tutorial04 && !_boss01 && dockingPlatform.name.Equals("Platform4") )
         {
             flowchart.SendFungusMessage("Boss01");
             return true;
@@ -68,7 +68,7 @@ public class TutorialController : MonoBehaviour
     public void onEnterCollision(Collider other)
     {
         UpdateVariables();
-        if (!_tutorial02 && other.CompareTag("TutorialCollider") && other.transform.root.name == "Platform2")
+        if (_tutorial01 && !_tutorial02 && other.CompareTag("TutorialCollider") && other.transform.root.name == "Platform2")
         {
             flowchart.SendFungusMessage("Tutorial02");
         }

@@ -111,7 +111,7 @@ public class ElevatorController : MonoBehaviour
 
     public void OnBossStart()
     {
-        _elevatorData.IsDockingable = false;
+        _elevatorData.InBattle = true;
     }
 
     public void getDamage(Collider other, int HP)

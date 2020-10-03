@@ -23,6 +23,8 @@ public class ElevatorData : MonoBehaviour
 
     public bool IsPaused { get; set; } = false;
 
+    public bool InBattle { get; set; } = false;
+
     public int HP { get; set; } = 100;
 
     private float _temp = 0f;

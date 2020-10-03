@@ -166,7 +166,7 @@ public class Elevator : MonoBehaviour
         if (other.CompareTag("PlatformCollider"))
         {
             elevatorData.DockingPlatform = other.transform.root.gameObject;
-            if (!elevatorData.IsDocked && elevatorData.IsDockingable)
+            if (!elevatorData.IsDocked && elevatorData.IsDockingable && !elevatorData.InBattle)
             {
                 elevatorData.IsDockingProgress = true;
             }
@@ -244,6 +244,7 @@ public class Elevator : MonoBehaviour
         _pointerState = PointerState.None;
     }
 
+    //called from elevatorCollider
     public void GetDamage(Collider other)
     {
         if (_damageCount > invincibleTime && data.BossShotDamage > 0)

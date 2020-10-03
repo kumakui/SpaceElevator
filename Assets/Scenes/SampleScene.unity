@@ -2176,7 +2176,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312112230}
   m_LocalRotation: {x: 0.14991237, y: 0.29044876, z: 0.046131533, w: -0.943948}
-  m_LocalPosition: {x: 14.51146, y: -195.14978, z: 31.92363}
+  m_LocalPosition: {x: 1108.566, y: -1527.0991, z: -1071.9617}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7765,7 +7765,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4c3d088e136038d4eb35dda0fa2d400d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -8466,7 +8466,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -97
     y: 112
-    width: 107
+    width: 100
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8554,7 +8554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 607.34735, y: 2.1220055}
+  scrollPos: {x: 572.44165, y: 21.086372}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 458
@@ -8566,9 +8566,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1079181441}
-  selectedCommands:
-  - {fileID: 1079181431}
+  - {fileID: 1079181602}
+  selectedCommands: []
   variables:
   - {fileID: 1079181313}
   - {fileID: 1079181372}
@@ -10560,7 +10559,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 18.285156
     y: 113.68707
-    width: 108
+    width: 100
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -12203,7 +12202,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 140.98294
     y: 112.08817
-    width: 109
+    width: 100
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13260,7 +13259,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 265.7851
     y: 116.18707
-    width: 109
+    width: 100
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14402,7 +14401,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -78.298584
     y: 187.71344
-    width: 91
+    width: 84
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14490,7 +14489,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 23.108643
     y: 200.2753
-    width: 92
+    width: 84
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -16867,7 +16866,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 143.63129
     y: 196.50836
-    width: 93
+    width: 84
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -17002,8 +17001,8 @@ MonoBehaviour:
     Culture=neutral, PublicKeyToken=null
   targetComponentFullname: UnityEngine.Component[]
   targetComponentText: GameController
-  targetMethod: 
-  targetMethodText: 
+  targetMethod: FinishGame
+  targetMethodText: 'FinishGame (): Void'
   methodParameters: []
   saveReturnValue: 0
   returnValueVariableKey: 
@@ -17012,7 +17011,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1079181512
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -20113,7 +20112,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 273.05933
     y: 194.08679
-    width: 93
+    width: 84
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
