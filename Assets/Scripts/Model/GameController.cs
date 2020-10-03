@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
     {
         _bgmAudioSource = Camera.main.GetComponent<AudioSource>();
 
-        // Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
+        Debug.unityLogger.logEnabled = false;//Debug.Log()を無効化
         var elevatorWater = GameObject.Find("ElevatorWater2");
         // _elevatorWaterRenderer = elevatorWater.GetComponent<MeshRenderer>();
         _wallUpperLimitHeight = UpperLimitObject.transform.position.y;
@@ -69,6 +69,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Application.platform == RuntimePlatform.Android && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.runInBackground = false;
+            Application.Quit();
+        }
     }
 
     public void onRegionChange(Region region)
