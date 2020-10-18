@@ -1903,8 +1903,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280309423}
-  m_LocalRotation: {x: -0.0008726949, y: 0, z: 0, w: 0.99999964}
-  m_LocalPosition: {x: 0, y: -573.4504, z: -571.4304}
+  m_LocalRotation: {x: -0.08028524, y: 0.123771414, z: 0.010047872, w: 0.9890066}
+  m_LocalPosition: {x: 64.24603, y: -3784.1584, z: -1838.5658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11235,7 +11235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip01
-  value: 1
+  value: 0
 --- !u!114 &1079181377
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13706,7 +13706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip02
-  value: 1
+  value: 0
 --- !u!114 &1079181423
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13978,7 +13978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip04
-  value: 1
+  value: 0
 --- !u!114 &1079181426
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13993,7 +13993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip03
-  value: 1
+  value: 0
 --- !u!114 &1079181427
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -17751,7 +17751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: SkipAll
-  value: 1
+  value: 0
 --- !u!114 &1079181518
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -21345,7 +21345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1079181307}
+  selectedFlowchart: {fileID: 1455499418}
 --- !u!4 &1144747563
 Transform:
   m_ObjectHideFlags: 1
@@ -21575,7 +21575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -92, y: 762}
+  m_AnchoredPosition: {x: -92, y: 771}
   m_SizeDelta: {x: 842.6, y: 301.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1192558813
