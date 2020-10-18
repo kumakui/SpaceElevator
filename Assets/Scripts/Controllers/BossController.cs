@@ -139,6 +139,7 @@ public class BossController : MonoBehaviour
     public void RestartFight()
     {
         _HP = 100;
+        onBossDamageAction.Invoke(_HP);
         onRestartFightAction.Invoke();
     }
 

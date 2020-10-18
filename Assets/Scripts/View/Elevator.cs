@@ -34,6 +34,8 @@ public class Elevator : MonoBehaviour
 
     private PointerState _pointerState = PointerState.None;
 
+    public float fuelConsumption;
+
     private enum PointerState
     {
         Up,
@@ -55,11 +57,14 @@ public class Elevator : MonoBehaviour
         elevatorController.elevatorResumeAction += Resume;
         bossController.onBossDefeatAction += OnBossDefeat;
         bossController.onRestartFightAction += OnRestartBossFight;
+        elevatorController.ReturnToGroundAction += ReturnToGround;
 
         _upEmission = upFire.GetComponent<ParticleSystem>().emission;
         _downEmission = downFire.GetComponent<ParticleSystem>().emission;
 
-        var initialPos = GameObject.Find("Platform1").transform.Find("PlatformCollider").position;
+        var platform1 = GameObject.Find("Platform1");
+        var initialPos = platform1.transform.Find("PlatformCollider").position;
+        elevatorData.DockingPlatform = platform1;
         Dock(initialPos);
     }
 
@@ -116,6 +121,16 @@ public class Elevator : MonoBehaviour
             _audioSources[0].mute = false;
             _audioSources[0].pitch =
                 Mathf.Lerp(soundMinPitch, soundMaxPitch, elevatorData.Temp / data.T_MAX);
+
+            if (!elevatorData.InBattle)
+            {
+                elevatorData.fuel -= fuelConsumption;
+            }
+
+            if (elevatorData.fuel <= 0f)
+            {
+                RunOutFuel();
+            }
         }
         else if (_pointerState == PointerState.Down && !elevatorData.IsDocked &&
                  !elevatorData.IsPaused)
@@ -138,6 +153,15 @@ public class Elevator : MonoBehaviour
             _audioSources[0].mute = false;
             _audioSources[0].pitch =
                 Mathf.Lerp(soundMinPitch, soundMaxPitch, elevatorData.Temp / data.T_MAX);
+
+            if (!elevatorData.InBattle)
+            {
+                elevatorData.fuel -= fuelConsumption;
+            }
+            if (elevatorData.fuel <= 0f)
+            {
+                RunOutFuel();
+            }
         }
         else if (_pointerState == PointerState.None)
         {
@@ -149,10 +173,6 @@ public class Elevator : MonoBehaviour
 
             _audioSources[0].mute = true;
         }
-
-        // Debug.Log("start:  "+transform.position+"  end: "+(transform.position + thrust * 0.01f));
-        // Debug.DrawRay(transform.position, transform.position + (thrust * 0.01f), Color.red);
-
 
         elevatorData.Speed = _rb.velocity.magnitude;
         elevatorData.Position = _rb.position;
@@ -171,11 +191,6 @@ public class Elevator : MonoBehaviour
                 elevatorData.IsDockingProgress = true;
             }
         }
-
-        // if (other.CompareTag("BossShot"))
-        // {
-        //     GetDamage(other);
-        // }
     }
 
     private void OnTriggerExit(Collider other)
@@ -212,6 +227,14 @@ public class Elevator : MonoBehaviour
         _rb.useGravity = false;
         _rb.position = pos;
         _pointerState = PointerState.None;
+
+        if (elevatorData.DockingPlatform == null) return;
+
+        if (elevatorData.DockingPlatform.name == "Platform1" && !(elevatorData.fuel == 100f))
+        {
+            flowchart.SendFungusMessage("Fuel");
+            elevatorData.fuel = 100;
+        }
     }
 
     private void Unload(LuggageData luggageData)
@@ -252,11 +275,11 @@ public class Elevator : MonoBehaviour
             //無敵時間がもう終わっている
             elevatorData.HP -= data.BossShotDamage;
             _audioSources[2].Play();
-            elevatorController.getDamage(other, elevatorData.HP);
+            elevatorController.RetDamage(other, elevatorData.HP);
 
             _damageCount = 0f;
 
-            if (elevatorData.HP == 0)
+            if (elevatorData.HP <= 0)
             {
                 ElevatorDefeat();
             }
@@ -278,6 +301,7 @@ public class Elevator : MonoBehaviour
         // _rb.isKinematic = true;
         _rb.useGravity = false;
         elevatorData.IsPaused = true;
+        elevatorData.IsDockingable = false;
     }
 
 
@@ -285,6 +309,7 @@ public class Elevator : MonoBehaviour
     {
         // _rb.isKinematic = false;
         _rb.useGravity = true;
+        elevatorData.IsDockingable = true;
         elevatorData.IsPaused = false;
     }
 
@@ -306,11 +331,32 @@ public class Elevator : MonoBehaviour
 
     private void OnRestartBossFight()
     {
-        elevatorController.getDamage(null, 100);
+        elevatorController.RetDamage(null, 100);
         gun.enabled = true;
         elevatorData.HP = 100;
         _rb.useGravity = true;
         elevatorData.IsPaused = false;
     }
 
+    private void RunOutFuel()
+    {
+        elevatorController.RunOutFuel();
+        Pause();
+    }
+
+    private void ReturnToGround()
+    {
+        StartCoroutine(Wait(1.5f, () =>
+        {
+            var ground = GameObject.Find("Platform1").transform.position;
+            elevatorData.fuel = 100;
+            Dock(ground);
+        }));
+    }
+
+    private IEnumerator Wait(float waitSecond, Action action)
+    {
+        yield return new WaitForSeconds(waitSecond);
+        action();
+    }
 }

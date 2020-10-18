@@ -17,6 +17,8 @@ public class DamageEffectUI : MonoBehaviour
         _image.color = Color.clear;
 
         elevatorController.onElevatorDamageAction += onDamage;
+
+
     }
 
     // Update is called once per frame
@@ -33,4 +35,7 @@ public class DamageEffectUI : MonoBehaviour
         }
         _image.color = new Color(0.5f, 0f, 0f, 0.5f);
     }
+
+
+
 }

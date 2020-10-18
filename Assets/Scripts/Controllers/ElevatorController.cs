@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fungus;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class ElevatorController : MonoBehaviour
     public TutorialController tutorialController;
     public BossController bossController;
     public float spaceBoundHeight;
+    public Flowchart flowchart;
 
     public UnityAction<float> elevatorSpeedChangeAction;
     public UnityAction<float> elevatorDockingProgressAction;
@@ -22,6 +24,9 @@ public class ElevatorController : MonoBehaviour
     public UnityAction elevatorResumeAction;
     public UnityAction<int> onElevatorDamageAction;
     public UnityAction<Vector3> elevatorPosChangeAction;
+    public UnityAction<float> elevatorFuelChangeAction;
+    public UnityAction runOutFuelAction;
+    public UnityAction ReturnToGroundAction;
 
     private ElevatorData _elevatorData;
     private float _progress = 0f;
@@ -51,6 +56,8 @@ public class ElevatorController : MonoBehaviour
         luggageInfoUpdateAction.Invoke(data.Luggage.Amount, data.Luggage.Destination);
         //座標更新
         // elevatorPosChangeAction.Invoke(data.Position);
+        //燃料更新
+        elevatorFuelChangeAction.Invoke(data.fuel);
 
         bossController.OnElevatorRefresh(data);
 
@@ -72,7 +79,6 @@ public class ElevatorController : MonoBehaviour
             _progress = 0f;
             elevatorDockingProgressAction.Invoke(_progress / _dockingDuration);
         }
-
     }
 
     //チュートリアル開始判定用
@@ -114,8 +120,30 @@ public class ElevatorController : MonoBehaviour
         _elevatorData.InBattle = true;
     }
 
-    public void getDamage(Collider other, int HP)
+    public void RetDamage(Collider other, int HP)
     {
         onElevatorDamageAction.Invoke(HP);
+    }
+
+    public void RunOutFuel()
+    {
+        flowchart.SendFungusMessage("RunOutFuel");
+    }
+
+    //燃料切れ後に地上に戻る
+    public void ReturnToGround()
+    {
+        ReturnToGroundAction.Invoke();
+        StartCoroutine(Wait(4f, () =>
+        {
+            flowchart.SendFungusMessage("ReturnToGround");
+        }));
+
+    }
+
+    private IEnumerator Wait(float waitSecond, Action action)
+    {
+        yield return new WaitForSeconds(waitSecond);
+        action();
     }
 }

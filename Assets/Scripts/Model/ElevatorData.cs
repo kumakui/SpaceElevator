@@ -27,6 +27,8 @@ public class ElevatorData : MonoBehaviour
 
     public int HP { get; set; } = 100;
 
+    public float fuel { get; set; } = 100;
+
     private float _temp = 0f;
 
     public float Temp
