@@ -13,8 +13,8 @@ OKをタップしインストールファイルをダウンロードする
 ダウンロードしたapkファイルを実行する  
 Playストア以外の場所からアプリをインストールすることになるので，端末の設定によってはセキュリティ警告が表示されることがある  
 その場合，以下の手順で一時的にセキュリティ警告を解除しておく  
-Androidバージョンによって手順が異なるので，詳しくはリンク先を参照　　
-https://qiita.com/gumby/items/9e1431b73bdb6b0684d8　　
+Androidバージョンによって手順が異なるので，詳しくはリンク先を参照  
+[[Android]Google Playにない「野良アプリ」をインストールするために「提供元不明のアプリ」を許可する](https://qiita.com/gumby/items/9e1431b73bdb6b0684d8)
 
 設定をタップ  
 ![インストール](https://github.com/kumakui/SpaceElevator/blob/master/Images/install5.png)  
