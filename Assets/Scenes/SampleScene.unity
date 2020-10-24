@@ -2255,7 +2255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312112230}
   m_LocalRotation: {x: -0.08028524, y: 0.123771414, z: 0.010047872, w: 0.9890066}
-  m_LocalPosition: {x: 68.332214, y: -2962.3599, z: -1453.0721}
+  m_LocalPosition: {x: -1964.4701, y: -2582.168, z: -1817.7323}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8927,10 +8927,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1079181602}
-  selectedCommands:
-  - {fileID: 1079181603}
+  selectedBlocks: []
+  selectedCommands: []
   variables:
   - {fileID: 1079181313}
   - {fileID: 1079181372}
@@ -21345,7 +21343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1455499418}
+  selectedFlowchart: {fileID: 1079181307}
 --- !u!4 &1144747563
 Transform:
   m_ObjectHideFlags: 1
@@ -23200,7 +23198,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 237
     y: 50.9011
-    width: 117
+    width: 77
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -23326,7 +23324,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 231.4433
     y: 114.24742
-    width: 129
+    width: 89
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -23556,7 +23554,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 447.48105
     y: 51.506718
-    width: 82
+    width: 60
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -23583,7 +23581,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 440.069
     y: 127.62442
-    width: 107
+    width: 67
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -23980,7 +23978,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 437.1683
     y: 197.18658
-    width: 131
+    width: 91
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
