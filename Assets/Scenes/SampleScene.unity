@@ -1903,8 +1903,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280309423}
-  m_LocalRotation: {x: -0.28931272, y: 0.054521766, z: 0.016504671, w: 0.95553815}
-  m_LocalPosition: {x: 367.0993, y: -1090.2441, z: -380.99646}
+  m_LocalRotation: {x: -0.0008726949, y: 0, z: 0, w: 0.99999964}
+  m_LocalPosition: {x: 0, y: -573.4504, z: -571.4304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11234,7 +11234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip01
-  value: 1
+  value: 0
 --- !u!114 &1079181377
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13705,7 +13705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip02
-  value: 1
+  value: 0
 --- !u!114 &1079181423
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13977,7 +13977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip04
-  value: 1
+  value: 0
 --- !u!114 &1079181426
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13992,7 +13992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Skip03
-  value: 1
+  value: 0
 --- !u!114 &1079181427
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -17750,7 +17750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: SkipAll
-  value: 1
+  value: 0
 --- !u!114 &1079181518
 MonoBehaviour:
   m_ObjectHideFlags: 2
