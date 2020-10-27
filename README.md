@@ -1,6 +1,7 @@
 # SpaceElevator  
 Androidサンプル: https://developer.cloud.unity3d.com/share/share.html?shareId=byW9IZFE8L  
-WebGLサンプル: https://kumakui.github.io/SpaceElevator/  
+企画書:  
+プレイ動画:   
 
 # Android版のインストール方法  
 上記のリンクに移動し，インストールをタップ  
