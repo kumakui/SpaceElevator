@@ -1,7 +1,6 @@
 # SpaceElevator  
-Androidサンプル: https://developer.cloud.unity3d.com/share/share.html?shareId=ZJ2jiyvH88
-企画書:  
-プレイ動画: https://youtu.be/3BTc3-JI3xU
+Androidサンプル: https://developer.cloud.unity3d.com/share/share.html?shareId=ZJ2jiyvH88  
+プレイ動画: https://youtu.be/3BTc3-JI3xU  
 
 # Android版のインストール方法  
 上記のリンクに移動し，インストールをタップ  
