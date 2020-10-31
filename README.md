@@ -7,6 +7,7 @@ Unityの学習を兼ねて作成したものです。
 
 Androidサンプル: https://developer.cloud.unity3d.com/share/share.html?shareId=ZJ2jiyvH88  
 プレイ動画: https://youtu.be/3BTc3-JI3xU  
+企画書: https://drive.google.com/drive/folders/1LTKkqu7w_Y1L4ZA2N_G_UWtx_nFNp798?usp=sharing  
 
 # Android版のインストール方法  
 上記のリンクに移動し，インストールをタップ  
