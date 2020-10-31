@@ -1,4 +1,10 @@
 # SpaceElevator  
+
+Unityの学習を兼ねて作成したものです。  
+プラットフォーム: Android  
+制作環境: Unity 2020.1.8f1，C#  
+プレイ時間: 5分  
+
 Androidサンプル: https://developer.cloud.unity3d.com/share/share.html?shareId=ZJ2jiyvH88  
 プレイ動画: https://youtu.be/3BTc3-JI3xU  
 
